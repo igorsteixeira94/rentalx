@@ -1,28 +1,17 @@
 import { Router } from 'express';
 
-import { CategoryRepository } from '../modules/cars/repositories/CategoriesRepository';
-import { CreateCategoryServices } from '../modules/cars/services/CreateCategoryServices';
+import { createCategoryController } from '../modules/cars/useCases/createCategory';
+import { listCategoriesController } from '../modules/cars/useCases/listCategories';
 
 const categoriesRouter = Router();
-const categoriesRepository = new CategoryRepository();
 
 // Single responsibility Principle
 categoriesRouter.post('/', (request, response) => {
-  const { name, description } = request.body;
-
-  const createCategoryService = new CreateCategoryServices(
-    categoriesRepository
-  );
-
-  createCategoryService.execute({ name, description });
-
-  return response.status(201).send();
+  createCategoryController.handle(request, response);
 });
 
 categoriesRouter.get('/', (request, response) => {
-  const categories = categoriesRepository.list();
-
-  return response.json(categories);
+  listCategoriesController.handle(request, response);
 });
 
 export { categoriesRouter };

@@ -1,11 +1,11 @@
-import { ICategoriesRepository } from '../repositories/ICategoryRepository';
+import { ICategoriesRepository } from '../../repositories/ICategoryRepository';
 
 interface IRequestDTO {
   name: string;
   description: string;
 }
 
-class CreateCategoryServices {
+class CreateCategoryUseCase {
   constructor(private categoriesRepository: ICategoriesRepository) {} // Dependency inversion principle
 
   execute({ name, description }: IRequestDTO): void {
@@ -19,4 +19,4 @@ class CreateCategoryServices {
   }
 }
 
-export { CreateCategoryServices };
+export { CreateCategoryUseCase };
